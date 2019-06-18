@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate');
