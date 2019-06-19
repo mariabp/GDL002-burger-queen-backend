@@ -35,3 +35,7 @@ routes(app, (err) => {
 
   app.listen(port, () => console.log(`App listening on port ${port}`));
 });
+
+const orders = require('./routes/orders');
+
+app.use('/orders', orders);
