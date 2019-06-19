@@ -39,3 +39,7 @@ routes(app, (err) => {
 const orders = require('./routes/orders');
 
 app.use('/orders', orders);
+
+const products = require('./routes/products');
+
+app.use('/products', products);
