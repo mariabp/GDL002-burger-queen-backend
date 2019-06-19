@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
     .then(orders => res.json(orders));
 });
 
-// SUMBIT ORDER
+// POST ORDER
 
 router.post('/', (req, res) => {
   const newOrder = new Order({
@@ -46,7 +46,7 @@ router.get('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   Order.findById(req.params.id)
 
-    .exec()
+    .then()
 
     .then(order => order.remove())
 
@@ -60,7 +60,7 @@ router.delete('/:id', (req, res) => {
 // UPDATE SINGLE ORDER
 
 router.put('/:id', (req, res, next) => {
-  Order.findByIdAndUpdate({ _id: req.params.id }, req.params.status)
+  Order.findByIdAndUpdate({ _id: req.params.id }, req.body)
     .then(() => {
       Order.findOne({ _id: req.params.id }).then((order) => {
         res.send(order);
