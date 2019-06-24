@@ -5,7 +5,8 @@ const Schema = mongoose.Schema;
 
 const OrderSchema = new Schema({
   status: { type: String },
-  items: { type: Array },
+  orderedItems: { type: Array },
+  table: { type: Number },
   createdAt: { type: String },
   createdBy: { type: String },
 });
