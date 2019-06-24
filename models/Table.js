@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const TableSchema = new Schema({
-  number: { type: Number },
+  number: { type: String },
   pendingOrder: { type: Array },
   waiter: { type: String },
 });
