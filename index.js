@@ -11,18 +11,12 @@ const pkg = require('./package.json');
 const { port, mongoUrl, secret } = config;
 const app = express();
 
-
-// Conectar aplicación a MongoDB
-mongoose.connect(mongoUrl, { useNewUrlParser: true });
-
-
 app.set('config', config);
 app.set('pkg', pkg);
 
 
 app.use(express.json());
 app.use(authMiddleware(secret));
-
 
 // Registrar rutas
 routes(app, (err) => {
@@ -36,9 +30,20 @@ routes(app, (err) => {
   app.listen(port, () => console.log(`App listening on port ${port}`));
 });
 
+mongoose.connect(mongoUrl, { useNewUrlParser: true, useFindAndModify: false })
+
+  .then(() => console.log('MongoDB connected...'))
+
+  .catch(error => console.log(error));
+
+
 const orders = require('./routes/orders');
 
 app.use('/orders', orders);
+
+const tables = require('./routes/tables');
+
+app.use('/tables', tables);
 
 const products = require('./routes/products');
 
