@@ -1,3 +1,5 @@
+/* eslint-disable object-shorthand */
+/* eslint-disable prefer-destructuring */
 const express = require('express');
 
 const router = express.Router();
@@ -32,16 +34,18 @@ router.get('/', (req, res) => {
 
 // UPDATE TABLE
 
-router.patch('/:id', (req, res, next) => {
-  Table.findByIdAndUpdate({ _id: req.params.id }, req.body)
+router.patch('/update/:id', (req, res) => {
+  const data = req.body.data;
 
-    .then(() => {
-      Table.findOne({ _id: req.params.id }).then((table) => {
-        res.send(table);
-      });
-    })
+  Table.findByIdAndUpdate(req.params.id, data)
 
-    .catch(next);
+    .then(table => table.save())
+
+    .then(() => Table.find())
+
+    .then(tables => res.send(tables))
+
+    .catch(error => res.status(500).send({ error: error }));
 });
 
 module.exports = router;
