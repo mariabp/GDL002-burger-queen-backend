@@ -18,7 +18,9 @@ router.post('/', (req, res) => {
   const newOrder = new Order({
 
     status: req.body.status,
-    items: req.body.items,
+    order: req.body.order,
+    table_id: req.body._id,
+    notes: req.body.notes,
     createdAt: req.body.createdAt,
     createdBy: req.body.createdBy,
 
