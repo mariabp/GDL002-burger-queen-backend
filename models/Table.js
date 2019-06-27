@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 const TableSchema = new Schema({
   number: { type: String },
   pendingOrder: { type: Array },
+  pendingNotes: { type: Array },
   waiter: { type: String },
 });
 

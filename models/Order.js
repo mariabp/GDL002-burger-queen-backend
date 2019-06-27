@@ -5,9 +5,10 @@ const Schema = mongoose.Schema;
 
 const OrderSchema = new Schema({
   status: { type: String },
-  orderedItems: { type: Array },
-  table: { type: Number },
-  createdAt: { type: String },
+  order: { type: Array },
+  table_id: { type: String },
+  notes: { type: Array },
+  createdAt: { type: Date },
   createdBy: { type: String },
 });
 
