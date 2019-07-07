@@ -19,7 +19,7 @@ router.post('/', (req, res) => {
 
     status: req.body.status,
     order: req.body.order,
-    table_id: req.body._id,
+    table: req.body.table,
     notes: req.body.notes,
     createdAt: req.body.createdAt,
     createdBy: req.body.createdBy,

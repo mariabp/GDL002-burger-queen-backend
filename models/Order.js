@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 const OrderSchema = new Schema({
   status: { type: String },
   order: { type: Array },
-  table_id: { type: String },
+  table: { type: String },
   notes: { type: Array },
   createdAt: { type: Date },
   createdBy: { type: String },
