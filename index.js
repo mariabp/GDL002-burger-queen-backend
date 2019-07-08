@@ -41,9 +41,11 @@ const orders = require('./routes/orders');
 
 app.use('/orders', orders);
 
+
 const tables = require('./routes/tables');
 
 app.use('/tables', tables);
+
 
 const products = require('./routes/products');
 

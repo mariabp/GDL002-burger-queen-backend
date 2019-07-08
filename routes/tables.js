@@ -11,8 +11,11 @@ const Table = require('../models/Table');
 router.post('/', (req, res) => {
   const newTable = new Table({
 
-    number: req.body.number,
     pendingOrder: req.body.pendingOrder,
+    pendingNotes: req.body.pendingNotes,
+    number: req.body.number,
+    isPreparing: false,
+    isReady: false,
     waiter: req.body.waiter,
 
   });

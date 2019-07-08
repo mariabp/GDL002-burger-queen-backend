@@ -1,8 +1,12 @@
+/* eslint-disable padded-blocks */
+/* eslint-disable object-shorthand */
+/* eslint-disable prefer-destructuring */
 const express = require('express');
 
 const router = express.Router();
 
 const Order = require('../models/Order');
+const Table = require('../models/Table');
 
 // GET ALL ORDERS
 
@@ -20,6 +24,7 @@ router.post('/', (req, res) => {
     status: req.body.status,
     order: req.body.order,
     table: req.body.table,
+    table_id: req.body.table_id,
     notes: req.body.notes,
     createdAt: req.body.createdAt,
     createdBy: req.body.createdBy,
@@ -48,27 +53,65 @@ router.get('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   Order.findById(req.params.id)
 
-    .then()
-
     .then(order => order.remove())
 
     .then(() => Order.find())
 
-    .then(orders => res.json(orders))
+    .then((updatedOrders) => {
+
+      Order.find({ table_id: req.body.table_id })
+
+        .then((orders) => {
+
+          if (orders.length === 0) {
+
+            Table.findByIdAndUpdate(req.body.table_id, { isPreparing: false })
+
+              .then(table => table.save())
+
+              .then(() => Table.find())
+
+              .then(updatedTables => res.send({ updatedOrders, updatedTables }));
+
+          } else if (orders.every(order => order.status !== 'preparing')) {
+
+            Table.findByIdAndUpdate(req.body.table_id, { isPreparing: false })
+
+              .then(table => table.save())
+
+              .then(() => Table.find())
+
+              .then(updatedTables => res.send({ updatedOrders, updatedTables }));
+
+          } else {
+
+            res.send({ updatedOrders });
+
+          }
+
+        });
+
+    })
 
     .catch(error => res.status(500).json({ error }));
 });
 
 // UPDATE SINGLE ORDER
 
-router.put('/:id', (req, res, next) => {
-  Order.findByIdAndUpdate({ _id: req.params.id }, req.body)
-    .then(() => {
-      Order.findOne({ _id: req.params.id }).then((order) => {
-        res.send(order);
-      });
-    })
-    .catch(next);
+router.patch('/update/:id', (req, res) => {
+
+  const data = req.body.data;
+
+  Order.findByIdAndUpdate(req.params.id, data)
+
+    .then(order => order.save())
+
+    .then(() => Order.find())
+
+    .then(orders => res.send(orders))
+
+    .catch(error => res.status(500).send({ error: error }));
+
 });
 
 

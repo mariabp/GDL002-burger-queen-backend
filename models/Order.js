@@ -7,6 +7,7 @@ const OrderSchema = new Schema({
   status: { type: String },
   order: { type: Array },
   table: { type: String },
+  table_id: { type: String },
   notes: { type: Array },
   createdAt: { type: Date },
   createdBy: { type: String },
