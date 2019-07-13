@@ -1,8 +1,9 @@
+/* eslint-disable no-console */
 const path = require('path');
 const { spawn } = require('child_process');
 const nodeFetch = require('node-fetch');
 const kill = require('tree-kill');
-const config = require('../config');
+const config = require('../config/config');
 
 const port = process.env.PORT || 8888;
 const baseUrl = process.env.REMOTE_URL || `http://127.0.0.1:${port}`;
