@@ -83,6 +83,16 @@ router.delete('/:id', (req, res) => {
 
               .then(updatedTables => res.send({ updatedOrders, updatedTables }));
 
+          } else if (orders.every(order => order.status !== 'ready')) {
+
+            Table.findByIdAndUpdate(req.body.table_id, { isReady: false })
+
+              .then(table => table.save())
+
+              .then(() => Table.find())
+
+              .then(updatedTables => res.send({ updatedOrders, updatedTables }));
+
           } else {
 
             res.send({ updatedOrders });
