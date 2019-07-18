@@ -65,7 +65,6 @@ router.put('/:id', (req, res, next) => {
         res.send(product);
       });
     })
-
     .catch(next);
 });
 
